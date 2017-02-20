@@ -1,0 +1,21 @@
+* {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+main {
+  height: 1100px;
+  width: 1000px;
+}
+
+header {
+  border: 1px, solid;
+  width: 1000px;
+  height: 300px;
+}
+
+footer {
+  border: 1px, solid;
+  width: 1000px;
+  height: 300px;
+}
