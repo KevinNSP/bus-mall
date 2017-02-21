@@ -1,12 +1,17 @@
 'use strict';
 
-function CatalogEntry(name, image){
+var catalogEntries = [];
+
+var catalogPick = [];
+
+function CatalogEntry(name, imageSrc){
   this.name = name;
-  this.image = image;
+  this.image = imageSrc;
   this.timesShown = 0;
   this.timesClicked = 0;
-
+  catalogEntries.push(this);
 }
+
 var catalogEntryOne = new CatalogEntry('bag', 'assets/bag.jpg');
 
 var catalogEntryTwo = new CatalogEntry('banana', 'assets/banana.jpg');
@@ -47,4 +52,20 @@ var catalogEntryNineteen = new CatalogEntry('water-can', 'assets/water-can.jpg')
 
 var catalogEntryTwenty = new CatalogEntry('wine-glass', 'assets/wine-glass.jpg');
 
-console.log(catalogEntryOne);
+var displayImages = function() {
+  for (var i = 0; i < 3; i++) {
+    var picks = Math.floor(Math.random() * 20);
+
+    if(catalogPick.includes(catalogEntries[picks])) {
+      i--;
+      console.log(i);
+    } else {
+      catalogPick.push(catalogEntries[picks]);
+      console.log(i);
+    }
+  }
+};
+
+displayImages();
+
+console.log(catalogPick);

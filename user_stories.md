@@ -1,4 +1,6 @@
-Marketing
+#User Stories
+
+##Marketing
 
 1. As a user I want to find the most picked products in my catalog.
 
@@ -8,7 +10,7 @@ Marketing
 
 4. As a user I want these products to be displayed in a visually appealing manner.
 
-Research
+##Research
 
 1. As a researcher I want to know what products customers find appealing.
 
@@ -16,7 +18,7 @@ Research
 
 3. As a researcher I want to know how users react to the products we offer.
 
-Developer
+##Developer
 
 1. As a developer I want to use the most efficient way possible to find my results.
 
