@@ -69,3 +69,24 @@ var displayImages = function() {
 displayImages();
 
 console.log(catalogPick);
+
+var imgOne = (catalogPick[1].image);
+
+document.body.appendChild(img);
+
+
+// function show_image(name, imgSrc, height, alt) {
+//   var img = document.createElement('imgOne');
+//   img.name = name;
+//   img.src = src;
+//   img.width = width;
+//   img.height = height;
+//   img.alt = alt;
+//
+//     // This next line will just add it to the <body> tag
+//   document.body.appendChild(img);
+// }
+
+// var firstPic = document.createElement(catalogPick[1]);
+//
+// console.log(firstPic);
