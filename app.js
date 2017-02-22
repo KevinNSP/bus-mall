@@ -91,13 +91,23 @@ clickCounter.addEventListener('click', handleClick);
 function handleClick(event) {
   event.preventDefault();
   event.stopPropagation();
-}
 
-console.log(handleClick);
+  // var clickCounter = document.getElementById('selectorList');
+//   catalogEntry.image.removeChild(clickCounter);
+//   console.log(catalogEntry);
+};
 
+// console.log(clickCounter);
 
+console.log(selectImages);
 
+console.log(catalogShowing);
 
+selectImages();
+
+  // var imageClicked = event.target.image.value;
+  //
+  // console.log(imageClicked);
 // var img = new Image();
 // img.src = 'imgSrcOne';
 // element.appendChild(img);
