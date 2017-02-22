@@ -4,11 +4,11 @@ var catalogEntries = [];
 
 var catalogShowing = [];
 
+var previousPictures = [];
+
 var totalClicks = 0;
 
 var clickLimit = 0;
-
-var picsContainer = 0;
 
 function CatalogEntry(name, imageSrc){
   this.name = name;
@@ -92,8 +92,12 @@ function handleClick(event) {
   event.preventDefault();
   event.stopPropagation();
 
-  // var clickCounter = document.getElementById('selectorList');
+  catalogShowing = [];
+
+  var clickCounter = document.getElementById('selectorList');
 //   catalogEntry.image.removeChild(clickCounter);
+  clickCounter.innerHTML = '';
+  selectImages();
 //   console.log(catalogEntry);
 };
 
@@ -103,7 +107,7 @@ console.log(selectImages);
 
 console.log(catalogShowing);
 
-selectImages();
+// selectImages();
 
   // var imageClicked = event.target.image.value;
   //
