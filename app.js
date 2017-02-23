@@ -87,29 +87,23 @@ function handleClick(event) {
   event.preventDefault();
   event.stopPropagation();
 
-  var clickEvent = event.target;
-  console.log(clickEvent);
-  totalClicks = clickEvent;
-  console.log(totalClicks);
+  for (var i = 0; i < allProductsAr.length; i++) {
+    if(event.target.id === allProductsAr[i].name) {
+      allProductsAr[i].timesClicked++;
+      console.log(event.target);
 
+      console.log(CatalogEntry[i]);
+    }
+  }
+
+  console.log(allProductsAr);
+
+  displayedProducts = [];
+
+  console.log(allProductsAr);
+
+  var clickCounter = document.getElementById('selectorList');
+  clickCounter.innerHTML = '';
+  selectImages();
 
 };
-
-
-// for (var i = 0; i < displayedProducts.length; i++) {
-//   if(event.target.id === displayedProducts[i].name);
-//   displayedProducts[i].timesClicked++;
-//   console.log(event.target);
-//
-//   console.log(CatalogEntry[i]);
-// }
-
-console.log(displayedProducts);
-
-displayedProducts = [];
-
-console.log(displayedProducts);
-
-var clickCounter = document.getElementById('selectorList');
-clickCounter.innerHTML = '';
-selectImages();
