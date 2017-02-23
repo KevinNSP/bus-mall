@@ -1,8 +1,8 @@
 'use strict';
 
-var catalogEntries = [];
+var allProductsAr = [];
 
-var catalogShowing = [];
+var displayedProducts = [];
 
 var previousPictures = [];
 
@@ -15,7 +15,7 @@ function CatalogEntry(name, imageSrc){
   this.image = imageSrc;
   this.timesShown = 0;
   this.timesClicked = 0;
-  catalogEntries.push(this);
+  allProductsAr.push(this);
 }
 
 var catalogEntryOne = new CatalogEntry('bag', 'assets/bag.jpg');
@@ -43,31 +43,26 @@ var displayImages = 3;
 
 var chooserImages = function() {
   for (var i = 0; i < displayImages; i++) {
-    var picks = Math.floor(Math.random() * catalogEntries.length);
+    var picks = Math.floor(Math.random() * allProductsAr.length);
 
-    if(catalogShowing.includes(catalogEntries[picks])) {
+    if(displayedProducts.includes(allProductsAr[picks]) || previousPictures.includes(allProductsAr[picks])) {
       i--;
       console.log(i);
     } else {
-      catalogShowing.push(catalogEntries[picks]);
+      displayedProducts.push(allProductsAr[picks]);
       console.log(i);
     }
   }
-};
+  console.log(previousPictures); //logs previous round of displayed pictures
 
-// console.log(catalogShowing);
-//
-// var imgSrcOne = (catalogShowing[0].image);
-// var imgSrcTwo = (catalogShowing[1].image);
-// var imgSrcThree = (catalogShowing[2].image);
-//
-// var currentlyShowing = [imgSrcOne, imgSrcTwo, imgSrcThree];
-//
-// console.log(currentlyShowing);
-//
-// console.log(imgSrcOne);
-// console.log(imgSrcTwo);
-// console.log(imgSrcThree);
+  previousPictures = [];
+
+  console.log(previousPictures); //logs array clear
+
+  previousPictures = displayedProducts;
+
+  console.log(previousPictures); //log new array of pictures
+};
 
 function selectImages() {
   chooserImages();
@@ -76,8 +71,8 @@ function selectImages() {
     var newLi = document.createElement('li');
     getUlEl.appendChild(newLi);
     var newImgTag = document.createElement('img');
-    newImgTag.setAttribute('src', catalogShowing[i].image);
-    newImgTag.setAttribute('id', catalogShowing[i].name);
+    newImgTag.setAttribute('src', displayedProducts[i].image);
+    newImgTag.setAttribute('id', displayedProducts[i].name);
     newLi.appendChild(newImgTag);
   }
 };
@@ -92,65 +87,29 @@ function handleClick(event) {
   event.preventDefault();
   event.stopPropagation();
 
-  catalogShowing = [];
+  var clickEvent = event.target;
+  console.log(clickEvent);
+  totalClicks = clickEvent;
+  console.log(totalClicks);
 
-  var clickCounter = document.getElementById('selectorList');
-//   catalogEntry.image.removeChild(clickCounter);
-  clickCounter.innerHTML = '';
-  selectImages();
-//   console.log(catalogEntry);
+
 };
 
-// console.log(clickCounter);
 
-console.log(selectImages);
-
-console.log(catalogShowing);
-
-// selectImages();
-
-  // var imageClicked = event.target.image.value;
-  //
-  // console.log(imageClicked);
-// var img = new Image();
-// img.src = 'imgSrcOne';
-// element.appendChild(img);
+// for (var i = 0; i < displayedProducts.length; i++) {
+//   if(event.target.id === displayedProducts[i].name);
+//   displayedProducts[i].timesClicked++;
+//   console.log(event.target);
 //
-// console.log(img);
-
-// var firstImg = document.createElement('img');
-// firstImg.setAttribute('imageSrc', )
-//
-
-// while (currentlyShowing.includes(imgSrcOne)) {
-//   imgSrcOne = chooserImages();
-// }
-// picsContainer.removeChild(imgSrcOne);
-// imgSrcOne = document.createElement('img');
-// imgSrcOne.setAttribute('src', imgSrcOne.image);
-// picsContainer.appendChild(imgOne);
-//
-//
-
-// function displayPics() {
-//   var imgOne = catalogShowing[0];
-//   var imgTwo = catalogShowing[1];
-//   var imgThree = catalogShowing[2];
-// }
-//
-// console.log(imgOne);
-// function show_image(name, imgSrc, height, alt) {
-//   var img = document.createElement('imgOne');
-//   img.name = name;
-//   img.src = src;
-//   img.width = width;
-//   img.height = height;
-//   img.alt = alt;
-//
-//     // This next line will just add it to the <body> tag
-//   document.body.appendChild(img);
+//   console.log(CatalogEntry[i]);
 // }
 
-// var firstPic = document.createElement(catalogPick[1]);
-//
-// console.log(firstPic);
+console.log(displayedProducts);
+
+displayedProducts = [];
+
+console.log(displayedProducts);
+
+var clickCounter = document.getElementById('selectorList');
+clickCounter.innerHTML = '';
+selectImages();
