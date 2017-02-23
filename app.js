@@ -10,6 +10,8 @@ var totalClicks = 0;
 
 var clickLimit = 0;
 
+var seenImages = 25;
+
 function CatalogEntry(name, imageSrc){
   this.name = name;
   this.image = imageSrc;
@@ -77,11 +79,21 @@ function selectImages() {
   }
 };
 
+var allProductsJSON = function saveProductsToLocalStorage(allProducts) {
+  return JSON.stringify(allProductsAr); //convert all objects to strings
+};
+
+console.log(allProductsJSON);
+
 selectImages();
 
 var clickCounter = document.getElementById('selectorList');
 
 clickCounter.addEventListener('click', handleClick);
+
+// for (var i = 0; i < array.length; i++) {
+//   a
+// }
 
 function handleClick(event) {
   event.preventDefault();
@@ -96,21 +108,25 @@ function handleClick(event) {
     }
   }
 
-var shownCounter = document.getElementById('selectorList');
+  console.log(allProductsAr);
 
-clickCounter.addEventListener('shown', handleShown);
+  displayedProducts = [];
 
-  for (var i = 0; i < 25; i++) {
-    if(event.target.id) === allProductsAr[i].name {
-      allProductsAr[i].timesShown++;
+  console.log(allProductsAr);
 
-      console.log(allProductsAr);
-
-      console.log(allProductsAr);
-
-// ------------------------------------------
   var clickCounter = document.getElementById('selectorList');
   clickCounter.innerHTML = '';
   selectImages();
 
 };
+
+// function handleSeen(event) {
+//   event.preventDefault();
+//   event.stopPropagation();
+//
+//   for (var i = 0; i < seenImages; i++) {
+//     if(event.target.id === allProductsAr[i].name) {
+//       allProductsAr[i].times++;
+//     }
+//   }
+// };
