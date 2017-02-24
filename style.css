@@ -11,7 +11,7 @@ main {
 header {
   border: 1px, solid;
   width: 1000px;
-  height: 300px;
+  height: 100px;
 }
 
 footer {
@@ -25,7 +25,7 @@ img {
   width: 300px;
 }
 
-li {
+#selectorList {
   display: inline;
   width: 300px;
 }
@@ -34,4 +34,8 @@ li {
   width: 300px;
   height: 300px;
   background-color: black;
+}
+
+#listOfImages {
+  
 }
