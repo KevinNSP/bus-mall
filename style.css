@@ -25,6 +25,11 @@ img {
   width: 300px;
 }
 
+canvas {
+  width: 500px;
+  height: 500px;
+}
+
 #selectorList {
   display: inline;
   width: 300px;
@@ -37,5 +42,5 @@ img {
 }
 
 #listOfImages {
-  
+
 }
