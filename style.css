@@ -20,6 +20,12 @@ footer {
   height: 300px;
 }
 
+li {
+  align-content: center;
+  display: inline-block;
+  width: 300px;
+}
+
 img {
   display: inline;
   width: 300px;
@@ -46,7 +52,7 @@ canvas {
 }
 
 #listOfImages {
-  display: block;
+  display: inline;
   height:400px;
 
 }
