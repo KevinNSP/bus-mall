@@ -4,7 +4,7 @@
 }
 
 main {
-  height: 1100px;
+  height: 2500px;
   width: 1000px;
 }
 
@@ -20,9 +20,24 @@ footer {
   height: 300px;
 }
 
+li {
+  align-content: center;
+  display: inline-block;
+  width: 300px;
+}
+
 img {
   display: inline;
   width: 300px;
+}
+
+section {
+  display: block;
+}
+
+canvas {
+  width: 500px;
+  height: 500px;
 }
 
 #selectorList {
@@ -37,5 +52,12 @@ img {
 }
 
 #listOfImages {
-  
+  display: inline;
+  height:400px;
+
+}
+
+#chart {
+  display: block;
+  height: 500px;
 }

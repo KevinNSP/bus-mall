@@ -1,24 +1,24 @@
 'use strict';
 
-var allProductsAr = [];
+// GLOBAL VARIABLES
 
-var displayedProducts = [];
+var allProductsAr = []; //ARRAY OF PRODUCT VARIABLES
 
-var previousPictures = [];
+var displayedProducts = []; //ARRAY OF CURRENTLY DISPLAYED PRODUCTS
 
-var totalClicks = 0;
+var previousPictures = []; //ARRAY OF 3 PREVIOUSLY DISPLAYED IMAGES
 
-var clickLimit = 0;
+var totalClicks = 0; //TOTAL NUMBER OF CLICKS PER IMAGE
 
-var maxClicks = 25;
+var clickLimit = 0; //TOTAL AMOUNT OF CLICKS PER IMAGE
 
-function CatalogEntry(name, imageSrc){
-  this.name = name;
-  this.image = imageSrc;
-  this.timesShown = 0;
-  this.timesClicked = 0;
-  allProductsAr.push(this);
-}
+var maxClicks = 25; // MAXIMUM AMOUNT OF CLICKS BEFORE STOPPING
+
+var displayImages = 3;//NUMBER OF IMAGES TO DISPLAY
+
+var clickCounter = document.getElementById('selectorList'); //RETRIEVE selectorList FROM DOM
+
+// PRODUCT VARIABLES
 
 var catalogEntryOne = new CatalogEntry('bag', 'assets/bag.jpg');
 var catalogEntryTwo = new CatalogEntry('banana', 'assets/banana.jpg');
@@ -41,79 +41,7 @@ var catalogEntryEighteen = new CatalogEntry('usb', 'assets/usb.gif');
 var catalogEntryNineteen = new CatalogEntry('water-can', 'assets/water-can.jpg');
 var catalogEntryTwenty = new CatalogEntry('wine-glass', 'assets/wine-glass.jpg');
 
-var displayImages = 3;
-
-var chooserImages = function() {
-  for (var i = 0; i < displayImages; i++) {
-    var picks = Math.floor(Math.random() * allProductsAr.length);
-
-    if(displayedProducts.includes(allProductsAr[picks]) || previousPictures.includes(allProductsAr[picks])) {
-      i--;
-      // console.log(i);
-    } else {
-      allProductsAr[picks].timesShown += 1;
-      console.log('**-----------------------**');
-      console.log('times shown: ', allProductsAr[picks].timesShown);
-      displayedProducts.push(allProductsAr[picks]);
-      // console.log(i);
-    }
-  }
-  // console.log(previousPictures); //logs previous round of displayed pictures
-
-  previousPictures = [];
-
-  // console.log(previousPictures); //logs array clear
-
-  previousPictures = displayedProducts;
-
-  // console.log(previousPictures); //log new array of pictures
-};
-
-function selectImages() {
-  chooserImages();
-  var getUlEl = document.getElementById('selectorList');
-  for (var i = 0; i < 3; i++) {
-    var newLi = document.createElement('li');
-    getUlEl.appendChild(newLi);
-    var newImgTag = document.createElement('img');
-    newImgTag.setAttribute('src', displayedProducts[i].image);
-    newImgTag.setAttribute('id', displayedProducts[i].name);
-    newLi.appendChild(newImgTag);
-  }
-};
-
-function displayList() {
-  var getUlEl = document.getElementById('listOfImages');
-  for (var i = 0; i < allProductsAr.length; i++) {
-    var newListLi = document.createElement('li');
-    newListLi.textContent = (allProductsAr[i].timesClicked) + ' votes for ' + (allProductsAr[i].name);
-    getUlEl.appendChild(newListLi);
-
-  }
-};
-
-// console.log(displayList);
-
-// function displayList() {
-//   for (var i = 0; i < allProductsAr.length; i++) {
-//   }
-// }
-
-// var allProductsJSON = function saveProductsToLocalStorage(allProducts) {
-//   return JSON.stringify(allProductsAr); //convert all objects to strings
-// };
-//
-// console.log(allProductsJSON);
-
-selectImages();
-
-var clickCounter = document.getElementById('selectorList');
-
-clickCounter.addEventListener('click', handleClick);
-
-// for (var i = 0; i < array.length; i++) {
-//   a
-// }
+// CLICK IMAGE FUNCTION ==================================
 
 function handleClick(event) {
   event.preventDefault();
@@ -131,11 +59,7 @@ function handleClick(event) {
 
     // console.log('totalClicks', totalClicks);
 
-    // console.log(allProductsAr);
-
     displayedProducts = [];
-
-    // console.log(allProductsAr);
 
     var clickCounter = document.getElementById('selectorList');
     clickCounter.innerHTML = '';
@@ -146,17 +70,143 @@ function handleClick(event) {
   if(totalClicks >= maxClicks) {
     displayList();
     clickCounter.removeEventListener('click', handleClick);
+    // myChart();
   }
-
 };
 
-// function handleSeen(event) {
-//   event.preventDefault();
-//   event.stopPropagation();
-//
-//   for (var i = 0; i < seenImages; i++) {
-//     if(event.target.id === allProductsAr[i].name) {
-//       allProductsAr[i].times++;
-//     }
-//   }
+console.log(allProductsAr);
+
+// allProductsAr CONSTRUCTOR
+
+function CatalogEntry(name, imageSrc){
+  this.name = name;
+  this.image = imageSrc;
+  this.timesShown = 0;
+  this.timesClicked = 0;
+  allProductsAr.push(this);
+}
+
+// ALL AVAILABLE IMAGES FUNCTION ========================
+
+var chooserImages = function() {
+  for (var i = 0; i < displayImages; i++) {
+    var picks = Math.floor(Math.random() * allProductsAr.length);
+
+    if(displayedProducts.includes(allProductsAr[picks]) || previousPictures.includes(allProductsAr[picks])) {
+      i--;
+      // console.log(i);
+    } else {
+      allProductsAr[picks].timesShown += 1;
+      // console.log('**-----------------------**');
+      // console.log('times shown: ', allProductsAr[picks].timesShown);
+      displayedProducts.push(allProductsAr[picks]);
+      // console.log(i);
+    }
+  }
+  // console.log(previousPictures); //logs previous round of displayed pictures
+
+  previousPictures = [];
+
+  // console.log(previousPictures); //logs array clear
+
+  previousPictures = displayedProducts;
+
+  // console.log(previousPictures); //log new array of pictures
+};
+
+// FUNCTION TO SELECT 3 IMAGES ================
+
+function selectImages() {
+  chooserImages();
+  var getUlEl = document.getElementById('selectorList');
+  for (var i = 0; i < 3; i++) {
+    var newLi = document.createElement('li');
+    getUlEl.appendChild(newLi);
+    var newImgTag = document.createElement('img');
+    newImgTag.setAttribute('src', displayedProducts[i].image);
+    newImgTag.setAttribute('id', displayedProducts[i].name);
+    newLi.appendChild(newImgTag);
+  }
+};
+
+// FUNCTION TO DISPLAY LIST ===================
+
+function displayList() {
+  var getUlEl = document.getElementById('listOfImages');
+  for (var i = 0; i < allProductsAr.length; i++) {
+    var newListLi = document.createElement('li');
+    newListLi.textContent = (allProductsAr[i].timesClicked) + ' votes for ' + (allProductsAr[i].name);
+    getUlEl.appendChild(newListLi);
+
+  }
+  console.log(allProductsAr);
+  saveProductsToLocalStorage(allProductsAr);
+  myChart();
+};
+
+
+// var allProductsJSON = function saveProductsToLocalStorage(allProducts) {
+//   return JSON.stringify(allProducts); //convert all objects to strings
+//   console.log(allProductsJSON);
 // };
+
+selectImages();
+
+clickCounter.addEventListener('click', handleClick);
+
+// for (var i = 0; i < array.length; i++) {
+function saveProductsToLocalStorage(allProducts) {
+  localStorage.allProductsAr = JSON.stringify(allProducts);
+};
+
+// *****=============CHART START=====================**
+
+var chartImageNames = [];
+var chartImageClicks = [];
+var chartImageViews = [];
+
+function chartData() {
+  for (var i = 0; i < allProductsAr.length; i++) {
+    chartImageNames.push(allProductsAr[i].name);
+    chartImageClicks.push(allProductsAr[i].timesClicked);
+    chartImageViews.push(allProductsAr[i].timesShown);
+  }
+
+  // console.log(chartImageNames);
+  // console.log(chartImageViews);
+  // console.log(chartImageClicks);
+}
+
+function myChart() {
+  var ctx = document.getElementById('chart').getContext('2d');
+  chartData();
+  //var data = allProducts[i].clicks;
+  var labelColors = 'blue';
+
+  var myChartData = {
+    type: 'bar',
+    data: {
+      labels: chartImageNames,
+      datasets: [{
+        label: 'Number of Views',
+        data: chartImageViews,
+        backgroundColor: labelColors,
+      },
+      {
+        label: 'Number of Votes',
+        data: chartImageClicks,
+        backgroundColor: '#f58a07',
+      }],
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true
+          }
+        }]
+      }
+    }
+  };
+  var myChart = new Chart(ctx, myChartData);
+}
