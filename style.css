@@ -4,7 +4,7 @@
 }
 
 main {
-  height: 1100px;
+  height: 2500px;
   width: 1000px;
 }
 
@@ -25,6 +25,10 @@ img {
   width: 300px;
 }
 
+section {
+  display: block;
+}
+
 canvas {
   width: 500px;
   height: 500px;
@@ -42,5 +46,12 @@ canvas {
 }
 
 #listOfImages {
+  display: block;
+  height:400px;
 
+}
+
+#chart {
+  display: block;
+  height: 500px;
 }

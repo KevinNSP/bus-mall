@@ -1,24 +1,24 @@
 'use strict';
 
-var allProductsAr = [];
+// GLOBAL VARIABLES
 
-var displayedProducts = [];
+var allProductsAr = []; //ARRAY OF PRODUCT VARIABLES
 
-var previousPictures = [];
+var displayedProducts = []; //ARRAY OF CURRENTLY DISPLAYED PRODUCTS
 
-var totalClicks = 0;
+var previousPictures = []; //ARRAY OF 3 PREVIOUSLY DISPLAYED IMAGES
 
-var clickLimit = 0;
+var totalClicks = 0; //TOTAL NUMBER OF CLICKS PER IMAGE
 
-var maxClicks = 3;
+var clickLimit = 0; //TOTAL AMOUNT OF CLICKS PER IMAGE
 
-function CatalogEntry(name, imageSrc){
-  this.name = name;
-  this.image = imageSrc;
-  this.timesShown = 0;
-  this.timesClicked = 0;
-  allProductsAr.push(this);
-}
+var maxClicks = 25; // MAXIMUM AMOUNT OF CLICKS BEFORE STOPPING
+
+var displayImages = 3;//NUMBER OF IMAGES TO DISPLAY
+
+var clickCounter = document.getElementById('selectorList'); //RETRIEVE selectorList FROM DOM
+
+// PRODUCT VARIABLES
 
 var catalogEntryOne = new CatalogEntry('bag', 'assets/bag.jpg');
 var catalogEntryTwo = new CatalogEntry('banana', 'assets/banana.jpg');
@@ -41,7 +41,52 @@ var catalogEntryEighteen = new CatalogEntry('usb', 'assets/usb.gif');
 var catalogEntryNineteen = new CatalogEntry('water-can', 'assets/water-can.jpg');
 var catalogEntryTwenty = new CatalogEntry('wine-glass', 'assets/wine-glass.jpg');
 
-var displayImages = 3;
+// CLICK IMAGE FUNCTION ==================================
+
+function handleClick(event) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  if (totalClicks < maxClicks) {
+    for (var i = 0; i < allProductsAr.length; i++) {
+      if(event.target.id === allProductsAr[i].name) {
+        allProductsAr[i].timesClicked++;
+        console.log(event.target);
+      } else {
+      }
+    }
+    totalClicks += 1;
+
+    // console.log('totalClicks', totalClicks);
+
+    displayedProducts = [];
+
+    var clickCounter = document.getElementById('selectorList');
+    clickCounter.innerHTML = '';
+    selectImages();
+
+  };
+
+  if(totalClicks >= maxClicks) {
+    displayList();
+    clickCounter.removeEventListener('click', handleClick);
+    // myChart();
+  }
+};
+
+console.log(allProductsAr);
+
+// allProductsAr CONSTRUCTOR
+
+function CatalogEntry(name, imageSrc){
+  this.name = name;
+  this.image = imageSrc;
+  this.timesShown = 0;
+  this.timesClicked = 0;
+  allProductsAr.push(this);
+}
+
+// ALL AVAILABLE IMAGES FUNCTION ========================
 
 var chooserImages = function() {
   for (var i = 0; i < displayImages; i++) {
@@ -69,6 +114,8 @@ var chooserImages = function() {
   // console.log(previousPictures); //log new array of pictures
 };
 
+// FUNCTION TO SELECT 3 IMAGES ================
+
 function selectImages() {
   chooserImages();
   var getUlEl = document.getElementById('selectorList');
@@ -82,6 +129,8 @@ function selectImages() {
   }
 };
 
+// FUNCTION TO DISPLAY LIST ===================
+
 function displayList() {
   var getUlEl = document.getElementById('listOfImages');
   for (var i = 0; i < allProductsAr.length; i++) {
@@ -90,71 +139,25 @@ function displayList() {
     getUlEl.appendChild(newListLi);
 
   }
+  console.log(allProductsAr);
+  saveProductsToLocalStorage(allProductsAr);
+  myChart();
 };
 
-// console.log(displayList);
-
-// function displayList() {
-//   for (var i = 0; i < allProductsAr.length; i++) {
-//   }
-// }
 
 // var allProductsJSON = function saveProductsToLocalStorage(allProducts) {
-//   return JSON.stringify(allProductsAr); //convert all objects to strings
+//   return JSON.stringify(allProducts); //convert all objects to strings
+//   console.log(allProductsJSON);
 // };
-//
-// console.log(allProductsJSON);
 
 selectImages();
-
-var clickCounter = document.getElementById('selectorList');
 
 clickCounter.addEventListener('click', handleClick);
 
 // for (var i = 0; i < array.length; i++) {
-//   a
-// }
-
-function handleClick(event) {
-  event.preventDefault();
-  event.stopPropagation();
-
-  if (totalClicks < maxClicks) {
-    for (var i = 0; i < allProductsAr.length; i++) {
-      if(event.target.id === allProductsAr[i].name) {
-        allProductsAr[i].timesClicked++;
-        console.log(event.target);
-      } else {
-      }
-    }
-    totalClicks += 1;
-
-    // console.log('totalClicks', totalClicks);
-
-    // console.log(allProductsAr);
-
-    displayedProducts = [];
-
-    // console.log(allProductsAr);
-
-    var clickCounter = document.getElementById('selectorList');
-    clickCounter.innerHTML = '';
-    selectImages();
-
-  };
-
-  if(totalClicks >= maxClicks) {
-    displayList();
-    clickCounter.removeEventListener('click', handleClick);
-    myChart();
-  }
-
-};
-
 function saveProductsToLocalStorage(allProducts) {
   localStorage.allProductsAr = JSON.stringify(allProducts);
 };
-saveProductsToLocalStorage(allProductsAr);
 
 // *****=============CHART START=====================**
 
@@ -169,9 +172,9 @@ function chartData() {
     chartImageViews.push(allProductsAr[i].timesShown);
   }
 
-  console.log(chartImageNames);
-  console.log(chartImageViews);
-  console.log(chartImageClicks);
+  // console.log(chartImageNames);
+  // console.log(chartImageViews);
+  // console.log(chartImageClicks);
 }
 
 function myChart() {
@@ -205,16 +208,5 @@ function myChart() {
       }
     }
   };
-
   var myChart = new Chart(ctx, myChartData);
 }
-// function handleSeen(event) {
-//   event.preventDefault();
-//   event.stopPropagation();
-//
-//   for (var i = 0; i < seenImages; i++) {
-//     if(event.target.id === allProductsAr[i].name) {
-//       allProductsAr[i].times++;
-//     }
-//   }
-// };
