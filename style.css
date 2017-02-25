@@ -20,9 +20,13 @@ footer {
   height: 300px;
 }
 
+ul li {
+  display:inline;
+}
+
 img {
   display: inline;
-  width: 300px;
+  width: 250px;
 }
 
 #selectorList {
@@ -36,6 +40,7 @@ img {
   background-color: black;
 }
 
-#listOfImages {
-  
+#listOfImages li{
+  display: block;
+
 }
